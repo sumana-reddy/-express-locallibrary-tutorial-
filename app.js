@@ -6,12 +6,13 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var catalogRouter = require('./routes/catalog');
 
 var app = express();
-var mongoose = require('mongoose');
-const dev_db_url = 'mongodb+srv://dbuser:<dbuser123>@cluster0-4v28z.mongodb.net/webapps?retryWrites=true&w=majority'
+const mongoose = require('mongoose');
+const dev_db_url = 'mongodb+srv://dbuser:dbuser123@cluster0-4v28z.mongodb.net/webapps?retryWrites=true&w=majority'
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
